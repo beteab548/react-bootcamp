@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Questions from "../../questions.js";
 import quizComplete from "../assets/quiz-complete.png";
+import ProgressBar from "./progress-bar.jsx";
 export default function Quiz() {
   const [userAnswer, setUserAnswer] = useState([]);
   const activeQuestionIndex = userAnswer.length;
@@ -24,6 +25,12 @@ export default function Quiz() {
   return (
     <div id="quiz">
       <div id="questions">
+        <ProgressBar
+          timeout={10000}
+          onTimeOut={() => {
+            handleButton(null);
+          }}
+        />
         <h2>{Questions[activeQuestionIndex].text}</h2>
         <ul id="answers">
           {suffledAnswers.map((answers) => {
