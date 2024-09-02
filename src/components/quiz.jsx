@@ -12,6 +12,7 @@ export default function Quiz() {
   },[])
   const handleSkipedAnswer=useCallback(() => {
     handleButton(null);
+  
   },[handleButton])
   const quizIsComplete = Questions.length === userAnswer.length;
   if (quizIsComplete) {
@@ -29,6 +30,7 @@ export default function Quiz() {
     <div id="quiz">
       <div id="questions">
         <ProgressBar
+        key={activeQuestionIndex}
           timeout={10000}
           onTimeOut={handleSkipedAnswer}
         />

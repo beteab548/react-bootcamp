@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export default function ProgressBar({ timeout, onTimeOut }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
-  console.log(remainingTime);
   useEffect(() => {
     console.log("timeout is set");
     const timer = setTimeout(onTimeOut, timeout);
