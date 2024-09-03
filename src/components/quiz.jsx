@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import Questions from "../../questions.js";
 import quizComplete from "../assets/quiz-complete.png";
-import ProgressBar from "./progress-bar.jsx";
+import Question from "./Quetions.jsx";
 export default function Quiz() {
   const [clickedAnswer, setClickedAnswer] = useState("");
   const [userAnswer, setUserAnswer] = useState([]);
@@ -38,52 +38,18 @@ export default function Quiz() {
       </div>
     );
   }
-  const deepCopiedAnswers = [
-    ...Questions[activeQuestionIndex].answers.map((answer) => {
-      return answer;
-    }),
-  ];
-  const shuffledAnswers = [
-    ...deepCopiedAnswers.sort(() => {
-      return Math.random() - 0.5;
-    }),
-  ];
+
   return (
     <div id="quiz">
       <div id="questions">
-        <ProgressBar
+        <Question
           key={activeQuestionIndex}
-          timeout={30000}
-          onTimeOut={handleSkipedAnswer}
+          activeQuestionIndex={activeQuestionIndex}
+          onSelect={handleButton}
+          handleSkipedAnswer={handleSkipedAnswer}
+          userAnswer={userAnswer}
+          clickedAnswer={clickedAnswer}
         />
-        <h2>{Questions[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answers) => {
-            let selectedButtonStyle = "";
-            const isSelected = userAnswer[userAnswer.length - 1] == answers;
-            if (clickedAnswer === "answered" && isSelected) {
-              selectedButtonStyle = "selected";
-            }
-            if (
-              (clickedAnswer === "correct" || clickedAnswer === "wrong") &&
-              isSelected
-            ) {
-              selectedButtonStyle = clickedAnswer;
-            }
-            return (
-              <li key={answers} className="answer">
-                <button
-                  className={selectedButtonStyle}
-                  onClick={() => {
-                    handleButton(answers);
-                  }}
-                >
-                  {answers}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );
