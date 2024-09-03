@@ -5,28 +5,33 @@ import ProgressBar from "./progress-bar.jsx";
 export default function Quiz() {
   const [clickedAnswer, setClickedAnswer] = useState("");
   const [userAnswer, setUserAnswer] = useState([]);
-  const activeQuestionIndex = userAnswer.length;
+  const activeQuestionIndex =
+  clickedAnswer === "" ? userAnswer.length : userAnswer.length - 1;
+  console.log(activeQuestionIndex);
   const handleButton = useCallback(
     function handleButton(answer) {
-      if (answer == Questions[activeQuestionIndex].answers[0]) {
-        console.log("correct");
-        setClickedAnswer("correct");
-      } else {
-        setClickedAnswer("wrong");
-        console.log("wrong");
-      }
+      setClickedAnswer("answered");
       setTimeout(() => {
-        setUserAnswer((prevValue) => {
-          return [...prevValue, answer];
-        });
-        setClickedAnswer("");
-      }, 2000);
+        if (answer == Questions[activeQuestionIndex].answers[0]) {
+          console.log("correct");
+          setClickedAnswer("correct");
+        } else {
+          setClickedAnswer("wrong");
+          console.log("wrong");
+        }
+        setTimeout(() => {
+          setUserAnswer((prevValue) => {
+            return [...prevValue, answer];
+          });
+          setClickedAnswer("");
+        }, 2000);
+      }, 1000);
     },
     [activeQuestionIndex]
-  );
-  const handleSkipedAnswer = useCallback(() => {
-    handleButton(null);
-  }, [handleButton]);
+    );
+    const handleSkipedAnswer = useCallback(() => {
+      handleButton(null);
+    }, [handleButton]);
   const quizIsComplete = Questions.length === userAnswer.length;
   if (quizIsComplete) {
     return (
@@ -37,8 +42,8 @@ export default function Quiz() {
     );
   }
   const deepCopiedAnswers = [
-    ...Questions[activeQuestionIndex].answers.map((asnwer) => {
-      return [asnwer];
+    ...Questions[activeQuestionIndex].answers.map((answer) => {
+      return [answer];
     }),
   ];
   const shuffledAnswers = [
@@ -57,10 +62,21 @@ export default function Quiz() {
         <h2>{Questions[activeQuestionIndex].text}</h2>
         <ul id="answers">
           {shuffledAnswers.map((answers) => {
+            let selectedButtonStyle = "";
+            let isSelected = userAnswer[userAnswer.length - 1] === answers;
+            if (clickedAnswer == "answered" && isSelected) {
+              selectedButtonStyle = "selected";
+            }
+            if (
+              (clickedAnswer == "correct" || clickedAnswer == "wrong") &&
+              isSelected
+            ) {
+              selectedButtonStyle == clickedAnswer;
+            }
             return (
               <li key={answers} className="answer">
                 <button
-                  id={clickedAnswer}
+                  className={selectedButtonStyle}
                   onClick={() => {
                     handleButton(answers);
                   }}
