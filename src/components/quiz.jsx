@@ -6,32 +6,29 @@ export default function Quiz() {
   const [clickedAnswer, setClickedAnswer] = useState("");
   const [userAnswer, setUserAnswer] = useState([]);
   const activeQuestionIndex =
-  clickedAnswer === "" ? userAnswer.length : userAnswer.length - 1;
-  console.log(activeQuestionIndex);
+    clickedAnswer === "" ? userAnswer.length : userAnswer.length - 1;
   const handleButton = useCallback(
     function handleButton(answer) {
       setClickedAnswer("answered");
+      setUserAnswer((prevValue) => {
+        return [...prevValue, answer];
+      });
       setTimeout(() => {
         if (answer == Questions[activeQuestionIndex].answers[0]) {
-          console.log("correct");
           setClickedAnswer("correct");
         } else {
           setClickedAnswer("wrong");
-          console.log("wrong");
         }
         setTimeout(() => {
-          setUserAnswer((prevValue) => {
-            return [...prevValue, answer];
-          });
           setClickedAnswer("");
         }, 2000);
       }, 1000);
     },
     [activeQuestionIndex]
-    );
-    const handleSkipedAnswer = useCallback(() => {
-      handleButton(null);
-    }, [handleButton]);
+  );
+  const handleSkipedAnswer = useCallback(() => {
+    handleButton(null);
+  }, [handleButton]);
   const quizIsComplete = Questions.length === userAnswer.length;
   if (quizIsComplete) {
     return (
@@ -43,7 +40,7 @@ export default function Quiz() {
   }
   const deepCopiedAnswers = [
     ...Questions[activeQuestionIndex].answers.map((answer) => {
-      return [answer];
+      return answer;
     }),
   ];
   const shuffledAnswers = [
@@ -63,15 +60,15 @@ export default function Quiz() {
         <ul id="answers">
           {shuffledAnswers.map((answers) => {
             let selectedButtonStyle = "";
-            let isSelected = userAnswer[userAnswer.length - 1] === answers;
-            if (clickedAnswer == "answered" && isSelected) {
+            const isSelected = userAnswer[userAnswer.length - 1] == answers;
+            if (clickedAnswer === "answered" && isSelected) {
               selectedButtonStyle = "selected";
             }
             if (
-              (clickedAnswer == "correct" || clickedAnswer == "wrong") &&
+              (clickedAnswer === "correct" || clickedAnswer === "wrong") &&
               isSelected
             ) {
-              selectedButtonStyle == clickedAnswer;
+              selectedButtonStyle = clickedAnswer;
             }
             return (
               <li key={answers} className="answer">
