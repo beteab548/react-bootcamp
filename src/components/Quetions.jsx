@@ -11,7 +11,7 @@ export default function Question({
 }) {
   return (
     <>
-      <ProgressBar key={timeout} timeout={timeout} onTimeOut={handleSkipedAnswer} />
+      <ProgressBar timeout={timeout} onTimeOut={handleSkipedAnswer} />
       <h2>{Questions[activeQuestionIndex].text}</h2>
       <Answers
         userAnswer={userAnswer}
