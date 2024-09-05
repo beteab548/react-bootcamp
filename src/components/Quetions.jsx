@@ -2,6 +2,7 @@ import Questions from "../../questions.js";
 import ProgressBar from "./progress-bar.jsx";
 import Answers from "./answers.jsx";
 export default function Question({
+  timeout,
   clickedAnswer,
   onSelect,
   userAnswer,
@@ -10,7 +11,7 @@ export default function Question({
 }) {
   return (
     <>
-      <ProgressBar timeout={30000} onTimeOut={handleSkipedAnswer} />
+      <ProgressBar key={timeout} timeout={timeout} onTimeOut={handleSkipedAnswer} />
       <h2>{Questions[activeQuestionIndex].text}</h2>
       <Answers
         userAnswer={userAnswer}

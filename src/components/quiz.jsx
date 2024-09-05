@@ -7,17 +7,21 @@ export default function Quiz() {
   const [userAnswer, setUserAnswer] = useState([]);
   const activeQuestionIndex =
     clickedAnswer === "" ? userAnswer.length : userAnswer.length - 1;
+  let timer = 10000;
   const handleButton = useCallback(
     function handleButton(answer) {
       setClickedAnswer("answered");
+      timer = 1000;
       setUserAnswer((prevValue) => {
         return [...prevValue, answer];
       });
       setTimeout(() => {
         if (answer == Questions[activeQuestionIndex].answers[0]) {
           setClickedAnswer("correct");
+          timer = 2000;
         } else {
           setClickedAnswer("wrong");
+          timer = 2000;
         }
         setTimeout(() => {
           setClickedAnswer("");
@@ -44,6 +48,7 @@ export default function Quiz() {
       <div id="questions">
         <Question
           key={activeQuestionIndex}
+          timeout={timer}
           activeQuestionIndex={activeQuestionIndex}
           onSelect={handleButton}
           handleSkipedAnswer={handleSkipedAnswer}
