@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-function useFetch(fetchfn) {
+export function useFetch(fetchfn,initialValue) {
   const [isFetching, setIsFetching] = useState();
   const [error, setError] = useState();
-  const [fetchedData, setFetchedData] = useState();
+  const [fetchedData, setFetchedData] = useState(initialValue);
   useEffect(() => {
     async function fetchPlaces() {
       setIsFetching(true);
