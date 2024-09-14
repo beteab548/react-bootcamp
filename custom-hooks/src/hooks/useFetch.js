@@ -15,7 +15,7 @@ export function useFetch(fetchfn, initialValue) {
       setIsFetching(false);
     }
     fetchPlaces();
-  }, [fetchfn]);
+  }, []);
   return {
     isFetching,
     error,
