@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./input";
 export default function Login() {
   const [enteredValues, setEnteredValues] = useState({
     email: "",
@@ -18,28 +19,22 @@ export default function Login() {
     <form onSubmit={onSubmit}>
       <h2>Login</h2>
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onChange={(e) => {
-              handleEnteredValues("email", e.target.value);
-            }}
-          />
-        </div>
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            onChange={(e) => {
-              handleEnteredValues("password", e.target.value);
-            }}
-          />
-        </div>
+        <Input
+          id="email"
+          type="email"
+          name="email"
+          onChange={(e) => {
+            handleEnteredValues("email", e.target.value);
+          }}
+        />
+        <Input
+          id="password"
+          type="password"
+          name="password"
+          onChange={(e) => {
+            handleEnteredValues("password", e.target.value);
+          }}
+        />
       </div>
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
