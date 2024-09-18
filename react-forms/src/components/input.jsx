@@ -1,9 +1,10 @@
-export default function Input({}) {
+export default function Input({Lable,id,...props}) {
   return (
     <div className="control no-margin">
-      <label htmlFor="email">Email</label>
+      <label htmlFor={id}>{Lable}</label>
       <input
-       
+      id={id}
+       {...props}
       />
     </div>
   );

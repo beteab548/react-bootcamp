@@ -20,6 +20,7 @@ export default function Login() {
       <h2>Login</h2>
       <div className="control-row">
         <Input
+          lable={"email"}
           id="email"
           type="email"
           name="email"
@@ -28,6 +29,7 @@ export default function Login() {
           }}
         />
         <Input
+          lable={"password"}
           id="password"
           type="password"
           name="password"
