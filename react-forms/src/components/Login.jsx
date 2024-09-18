@@ -5,6 +5,8 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const emailIsNotValid =enteredValues.email!==''&& !enteredValues.email.includes("@");
+  const passwordIsInvalid =enteredValues.password!==''&&  enteredValues.password.length < 5;
   function onSubmit(event) {
     event.preventDefault();
     console.log(enteredValues);
@@ -20,7 +22,8 @@ export default function Login() {
       <h2>Login</h2>
       <div className="control-row">
         <Input
-          lable={"email"}
+          error={emailIsNotValid}
+          lable="email"
           id="email"
           type="email"
           name="email"
@@ -29,7 +32,8 @@ export default function Login() {
           }}
         />
         <Input
-          lable={"password"}
+          error={passwordIsInvalid}
+          lable="password"
           id="password"
           type="password"
           name="password"
