@@ -3,30 +3,34 @@ import { isEmail, hasMinLength } from "../util/validation";
 import useSetFormValue from "../hooks/useSetFormValue";
 export default function Login() {
   const {
-    enteredEmailValue,
+    enteredValue: enteredEmailValue,
     valueIsValid: emailIsValid,
     handleEnteredValues: handleEmailInput,
-  } = useSetFormValue("", (value) => {
+  } = useSetFormValue(" ", (value) => {
     return isEmail(value);
   });
   const {
-    enteredPasswordValue,
+    enteredValue: enteredPasswordValue,
     valueIsValid: passwordIsValid,
     handleEnteredValues: handlePwdInput,
-  } = useSetFormValue("", (value) => {
-    return hasMinLength(value);
+  } = useSetFormValue(" ", (value, length) => {
+    return hasMinLength(value, length);
   });
+  console.log(enteredEmailValue, enteredPasswordValue);
   function onsubmit(event) {
     event.preventDefault();
     event.target.reset();
+    if (!emailIsValid || !passwordIsValid) {
+      return;
+    }
+    console.log(enteredEmailValue, enteredPasswordValue);
   }
-  console.log(enteredEmailValue, enteredPasswordValue);
   return (
     <form onSubmit={onsubmit}>
       <h2>Login</h2>
       <div className="control-row">
         <Input
-          valid={emailIsValid}
+          valid={enteredEmailValue !== '' && emailIsValid}
           lable="email"
           id="email"
           type="email"
@@ -36,7 +40,7 @@ export default function Login() {
           }}
         />
         <Input
-          valid={passwordIsValid}
+          valid={enteredPasswordValue !== '' && passwordIsValid}
           lable="password"
           id="password"
           type="password"
