@@ -3,14 +3,9 @@ import Input from "./input";
 import { isEmail, hasMinLength, isNotEmpty } from "../util/validation";
 import useSetFormValue from "../hooks/useSetFormValue";
 export default function Login() {
-  const {
-    enteredValues,
-    emailIsNotValid,
-    passwordIsInvalid,
-    onSubmit,
-    handleEnteredValues,
-  } = useSetFormValue();
-  console.log(enteredValues);
+  const { enteredEmailValue } = useSetFormValue('');
+  const { enteredPasswordValue } = useSetFormValue('');
+  console.log(enteredEmailValue, enteredPasswordValue);
   return (
     <form onSubmit={onSubmit}>
       <h2>Login</h2>

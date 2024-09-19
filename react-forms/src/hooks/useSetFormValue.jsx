@@ -1,31 +1,24 @@
 import { useState } from "react";
 import { isEmail, hasMinLength } from "../util/validation";
 
-export default function useSetFormValue() {
-  const [enteredValues, setEnteredValues] = useState({
-    email: "",
-    password: "",
-  });
-  const emailIsNotValid =
-    enteredValues.email !== "" && !isEmail(enteredValues.email);
-  const passwordIsInvalid =
-    enteredValues.password !== "" && !hasMinLength(enteredValues.password, 6);
+export default function useSetFormValue(initialValue) {
+  const [enteredValue, setEnteredValue] = useState(initialValue);
+  
+//   const emailIsNotValid =
+//     enteredValue.email !== "" && !isEmail(enteredValue.email);
+//   const passwordIsInvalid =
+//     enteredValue.password !== "" && !hasMinLength(enteredValue.password, 6);
   function onSubmit(event) {
     event.preventDefault();
     event.target.reset();
-    setEnteredValues({
-      email: "",
-      password: "",
-    });
-    console.log(enteredValues);
+    setEnteredValue(initialValue);
+    console.log(enteredValue);
   }
-  function handleEnteredValues(idetifier, value) {
-    setEnteredValues((prevValue) => {
-      return { ...prevValue, [idetifier]: value };
-    });
+  function handleEnteredValues( value) {
+    setEnteredValue(value);
   }
   return {
-    enteredValues,
+    enteredValue,
     emailIsNotValid,
     passwordIsInvalid,
     onSubmit,
