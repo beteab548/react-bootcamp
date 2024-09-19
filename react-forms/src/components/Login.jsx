@@ -1,33 +1,48 @@
-import { useState } from "react";
 import Input from "./input";
-import { isEmail, hasMinLength, isNotEmpty } from "../util/validation";
+import { isEmail, hasMinLength } from "../util/validation";
 import useSetFormValue from "../hooks/useSetFormValue";
 export default function Login() {
-  const { enteredEmailValue } = useSetFormValue('');
-  const { enteredPasswordValue } = useSetFormValue('');
+  const {
+    enteredEmailValue,
+    valueIsValid: emailIsValid,
+    handleEnteredValues: handleEmailInput,
+  } = useSetFormValue("", (value) => {
+    return isEmail(value);
+  });
+  const {
+    enteredPasswordValue,
+    valueIsValid: passwordIsValid,
+    handleEnteredValues: handlePwdInput,
+  } = useSetFormValue("", (value) => {
+    return hasMinLength(value);
+  });
+  function onsubmit(event) {
+    event.preventDefault();
+    event.target.reset();
+  }
   console.log(enteredEmailValue, enteredPasswordValue);
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onsubmit}>
       <h2>Login</h2>
       <div className="control-row">
         <Input
-          error={emailIsNotValid}
+          valid={emailIsValid}
           lable="email"
           id="email"
           type="email"
           name="email"
           onChange={(e) => {
-            handleEnteredValues("email", e.target.value);
+            handleEmailInput(e.target.value);
           }}
         />
         <Input
-          error={passwordIsInvalid}
+          valid={passwordIsValid}
           lable="password"
           id="password"
           type="password"
           name="password"
           onChange={(e) => {
-            handleEnteredValues("password", e.target.value);
+            handlePwdInput(e.target.value);
           }}
         />
       </div>
