@@ -98,13 +98,21 @@ h1 {
   color: #ffc404;
   font-size: 0.9rem;
   font-weight: bold;
-  padding: 0.5rem 2rem;
-  margin: 0;
+  padding: 10px;
+  margin-left: 140px;
   border-radius: 4px;
+  width: 50px;
 }
 
 .meal-item-actions {
   margin-bottom: 1.5rem;
+  background-color:#ffc404;
+  width: 100px;
+  height: 27px;
+  border-radius:7px;
+  margin-left: 130px;
+  color: #46443c;
+
 }
 
 .cart h2 {

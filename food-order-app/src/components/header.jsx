@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CartModal from "./cartModla";
-
+import FoodLists from "./food-lists";
+import FoodAppImg from "../assets/reactfoodImg.jpg";
 export default function Header() {
   const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
   function cartBtnClicked() {
@@ -9,11 +10,16 @@ export default function Header() {
     });
   }
   return (
-    <div>
-      <img src="" alt="" />
-      <p>REACTFOOD</p>
-      <button onClick={cartBtnClicked}>cart{1}</button>
-      <CartModal isOpen={cartBtnIsClicked}/>
-    </div>
+    <>
+      <header id="main-header">
+        <div id="title">
+          <img src={FoodAppImg} alt="react food image" />
+          <p id="title">REACTFOOD</p>
+        </div>
+        <button onClick={cartBtnClicked}>cart{1}</button>
+      </header>
+      <CartModal isOpen={cartBtnIsClicked} />
+      <FoodLists />
+    </>
   );
 }
