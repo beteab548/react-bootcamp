@@ -7,17 +7,22 @@ function App() {
   const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
   console.log(mealsAddedToCart);
   function handleclickedList(newMeal) {
-    newMeal.qnt = 1;
+    if (!newMeal.qnt) {
+      newMeal.qnt = 1;
+    }
+    let mealExist = false;
     setMealsAddedToCart((prevValue) => {
-      return prevValue.map((cartMeals) => {
+      prevValue.map((cartMeals) => {
         if (newMeal.id == cartMeals.id) {
           cartMeals.qnt = cartMeals.qnt + 1;
-          console.log("+1");
-          return [cartMeals]
-        } else {
-          return [...prevValue, newMeal];
+          mealExist = true;
         }
       });
+      if (mealExist) {
+        return [...prevValue];
+      } else {
+        return [...prevValue, newMeal];
+      }
     });
   }
   function cartBtnClicked() {
