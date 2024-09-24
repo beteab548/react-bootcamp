@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function FoodLists() {
-  const [isFetchLoadding, setIsFetchLoading] = useState(false);
+export default function FoodLists({handleclickedList}) {
   const [fetchedData, setFetchedData] = useState([]);
+ 
   useEffect(() => {
     fetch("http://localhost:3000/meals", { method: "GET" })
       .then((data) => {
-        if (data.ok) {
-          setIsFetchLoading(true);
-        }
         return data.json();
       })
       .then((rawData) => {
@@ -27,7 +24,14 @@ export default function FoodLists() {
               <h3>{mealsLists.name}</h3>
               <p className="meal-item-price">{mealsLists.price}</p>
               <p className="meal-item-description ">{mealsLists.description}</p>
-            <button className="meal-item-actions">Add to <Cc:noie></Cc:noie>art</button>
+              <button
+                className="meal-item-actions"
+                onClick={() => {
+                  handleclickedList(mealsLists);
+                }}
+              >
+                Add to Cart
+              </button>
             </article>
           </div>
         );
