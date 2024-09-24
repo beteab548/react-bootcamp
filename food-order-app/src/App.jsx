@@ -5,17 +5,19 @@ import FoodLists from "../src/components/food-lists";
 function App() {
   const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
   const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
+  console.log(mealsAddedToCart);
   function handleclickedList(newMeal) {
     newMeal.qnt = 1;
     setMealsAddedToCart((prevValue) => {
-      prevValue.map((cartMeals) => {
+      return prevValue.map((cartMeals) => {
         if (newMeal.id == cartMeals.id) {
           cartMeals.qnt = cartMeals.qnt + 1;
           console.log("+1");
-          return 
+          return [cartMeals]
+        } else {
+          return [...prevValue, newMeal];
         }
       });
-      return [...prevValue, newMeal];
     });
   }
   function cartBtnClicked() {
@@ -34,5 +36,4 @@ function App() {
     </>
   );
 }
-
 export default App;
