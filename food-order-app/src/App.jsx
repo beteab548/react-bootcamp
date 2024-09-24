@@ -5,7 +5,6 @@ import FoodLists from "../src/components/food-lists";
 function App() {
   const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
   const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
-  console.log(mealsAddedToCart);
   function handleclickedList(newMeal) {
     if (!newMeal.qnt) {
       newMeal.qnt = 1;

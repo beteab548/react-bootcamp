@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 
-export default function FoodLists({handleclickedList}) {
+export default function FoodLists({ handleclickedList }) {
   const [fetchedData, setFetchedData] = useState([]);
- 
+
   useEffect(() => {
     fetch("http://localhost:3000/meals", { method: "GET" })
       .then((data) => {
         return data.json();
       })
       .then((rawData) => {
-        console.log(rawData);
         setFetchedData(rawData);
       });
   }, []);
