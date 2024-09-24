@@ -4,7 +4,7 @@ export default function CartModal({ isOpen }) {
     <dialog open={isOpen} >
       <p>cart is opened!</p>
       <p>your items!</p>
-      <button ></button>
+      <button></button>
     </dialog>
   );
 }
