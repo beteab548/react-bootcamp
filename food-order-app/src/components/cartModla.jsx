@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function CartModal({ isOpen, mealsAddedToCart }) {
+export default function CartModal({
+  isOpen,
+  mealsAddedToCart,
+  RemoveItemFromCart,
+}) {
+  console.log(mealsAddedToCart);
   const [cartItems, setCartItems] = useState(mealsAddedToCart);
   useEffect(() => {
     setCartItems(mealsAddedToCart);
@@ -25,6 +30,7 @@ export default function CartModal({ isOpen, mealsAddedToCart }) {
       });
       if (clickedmeal.qnt < 1) {
         return prevValue.filter((meals) => {
+          // RemoveItemFromCart(clickedmeal.id);
           return meals.qnt !== 0;
         });
       }

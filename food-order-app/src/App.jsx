@@ -29,12 +29,22 @@ function App() {
       return !prevValue;
     });
   }
+  function RemoveItemFromCart(mealId) {
+    setMealsAddedToCart((prevValue) => {
+      return [
+        ...prevValue.filter((id) => {
+          return mealId !== id;
+        }),
+      ];
+    });
+  }
   return (
     <>
-      <Header cartBtnClicked={cartBtnClicked} />
+      <Header cartBtnClicked={cartBtnClicked} cartItmes={mealsAddedToCart} />
       <CartModal
         isOpen={cartBtnIsClicked}
         mealsAddedToCart={mealsAddedToCart}
+        RemoveItemFromCart={RemoveItemFromCart}
       />
       <FoodLists handleclickedList={handleclickedList} />
     </>
