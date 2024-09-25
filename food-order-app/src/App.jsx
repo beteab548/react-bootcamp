@@ -29,13 +29,17 @@ function App() {
       return !prevValue;
     });
   }
-  function RemoveItemFromCart(mealId) {
-    setMealsAddedToCart((prevValue) => {
-      return [
-        ...prevValue.filter((id) => {
-          return mealId !== id;
-        }),
-      ];
+  function RemoveItemFromCart(mealToErase) {
+    console.log(mealsAddedToCart);
+
+    setTimeout(() => {
+      setMealsAddedToCart((prevValue) => {
+        return [
+          ...prevValue.filter((meals) => {
+            return mealToErase.id !== meals.id;
+          }),
+        ];
+      }, 1000);
     });
   }
   return (
