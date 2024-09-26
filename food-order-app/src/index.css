@@ -106,13 +106,12 @@ h1 {
 
 .meal-item-actions {
   margin-bottom: 1.5rem;
-  background-color:#ffc404;
+  background-color: #ffc404;
   width: 100px;
   height: 27px;
-  border-radius:7px;
+  border-radius: 7px;
   margin-left: 130px;
   color: #46443c;
-
 }
 
 .cart h2 {
@@ -267,4 +266,10 @@ h1 {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.redColor {
+  background-color: red;
+}
+.blackColor {
+  background-color: black;
 }

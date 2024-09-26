@@ -52,8 +52,9 @@ function App() {
 
   return (
     <>
+    
       <Header cartBtnClicked={cartBtnClicked} cartItmes={mealsAddedToCart} />
-      {orderBtnClicked && <Checkout isopen={orderBtnClicked} />}
+      {orderBtnClicked && <Checkout isopen={orderBtnClicked} mealsAddedToCart={mealsAddedToCart} />}
       {!orderBtnClicked && (
         <CartModal
           isOpen={cartBtnIsClicked}
