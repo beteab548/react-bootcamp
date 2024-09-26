@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import Checkout from "./checkout";
 export default function CartModal({
   isOpen,
   mealsAddedToCart,
   RemoveItemFromCart,
 }) {
+  const [orderBtnClicked, setOrderBtnClicked] = useState(false);
   const [cartItems, setCartItems] = useState(mealsAddedToCart);
   useEffect(() => {
     setCartItems(mealsAddedToCart);
@@ -35,6 +37,12 @@ export default function CartModal({
       return [...prevValue];
     });
   }
+  function orderIsClicked() {
+    setOrderBtnClicked((prevValue) => {
+      return !prevValue;
+    });
+    set
+  }
   return (
     <dialog open={isOpen}>
       {cartItems.length == 0 && <p>no items added yet!</p>}
@@ -61,6 +69,10 @@ export default function CartModal({
           </li>
         );
       })}
+      {cartItems.length !== 0 && (
+        <button onClick={orderIsClicked}>order</button>
+      )}
+      <Checkout isopen={orderBtnClicked} />
     </dialog>
   );
 }
