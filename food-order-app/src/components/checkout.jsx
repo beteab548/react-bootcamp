@@ -1,12 +1,12 @@
-export default function Checkout({ isopen }) {
-  function handleSubmit(event) {
-    const fd = new FormData(event.target);
-    const formDatas = Object.fromEntries(fd.entries());
-    
-  }
+export default function Checkout({ isopen,cartBtnClicked }) {
+  // function handleSubmit(event) {
+  //   const fd = new FormData(event.target);
+  //   const formDatas = Object.fromEntries(fd.entries());
+
+  // }
   return (
     <dialog open={isopen}>
-      <form onSubmit={handleSubmit}>
+      <form >
         <label htmlFor="first-name">
           <input type="text" id="first-name" />
         </label>

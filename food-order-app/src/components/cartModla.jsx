@@ -4,6 +4,7 @@ export default function CartModal({
   isOpen,
   mealsAddedToCart,
   RemoveItemFromCart,
+  cartBtnClicked,
 }) {
   const [orderBtnClicked, setOrderBtnClicked] = useState(false);
   const [cartItems, setCartItems] = useState(mealsAddedToCart);
@@ -41,7 +42,8 @@ export default function CartModal({
     setOrderBtnClicked((prevValue) => {
       return !prevValue;
     });
-    set
+
+      cartBtnClicked();
   }
   return (
     <dialog open={isOpen}>
@@ -72,7 +74,7 @@ export default function CartModal({
       {cartItems.length !== 0 && (
         <button onClick={orderIsClicked}>order</button>
       )}
-      <Checkout isopen={orderBtnClicked} />
+     <Checkout isopen={orderBtnClicked} />
     </dialog>
   );
 }

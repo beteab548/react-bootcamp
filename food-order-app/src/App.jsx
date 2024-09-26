@@ -49,6 +49,7 @@ function App() {
         isOpen={cartBtnIsClicked}
         mealsAddedToCart={mealsAddedToCart}
         RemoveItemFromCart={RemoveItemFromCart}
+        cartBtnClicked={cartBtnClicked}
       />
       <FoodLists handleclickedList={handleclickedList} />
     </>
