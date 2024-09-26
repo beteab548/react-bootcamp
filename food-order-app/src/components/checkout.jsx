@@ -14,12 +14,9 @@ export default function Checkout({ isopen, mealsAddedToCart }) {
     await fetch("http://localhost:3000/orders", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(
-        {
-          order: { items: mealsAddedToCart },
-        },
-        { customer: { data } }
-      ),
+      body: JSON.stringify({
+        order: { items: mealsAddedToCart, customer: data },
+      }),
     })
       .then((recivedData) => {
         return recivedData.json();
