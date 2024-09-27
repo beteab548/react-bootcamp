@@ -268,8 +268,19 @@ h1 {
   }
 }
 .redColor {
-  background-color: red;
+  background-color: #ff4b04;
 }
 .blackColor {
-  background-color: black;
+  background-color: rgb(70, 67, 67);
+  color: white;
+}
+.order-form {
+  display: flex;
+  flex-direction: column;
+}
+.order-form div {
+  margin-bottom: 30px;
+}
+.dialog {
+  background-color: #f3d05c;
 }

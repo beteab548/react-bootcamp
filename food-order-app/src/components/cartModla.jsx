@@ -38,11 +38,12 @@ export default function CartModal({
     });
   }
   return (
-    <dialog open={isOpen}>
+    <dialog open={isOpen} className="lists">
       {cartItems.length == 0 && <p>no items added yet!</p>}
       {cartItems.map((meals) => {
         return (
-          <li key={meals.id}>
+          
+          <li key={meals.id} >
             <p>{meals.name}</p>
             <p>{meals.qnt}</p>
             <p>{meals.price * meals.qnt}</p>
