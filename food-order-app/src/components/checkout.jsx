@@ -8,28 +8,22 @@ export default function Checkout({ isopen, mealsAddedToCart }) {
     reset,
     getValues,
   } = useForm();
-  const [btnColor, setBtnColor] = useState("redColor");
   async function handleformAfterSubmit(data) {
-    setBtnColor("blackColor");
-    await fetch("http://localhost:3000/orders", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        order: { items: mealsAddedToCart, customer: data },
-      }),
-    })
-      .then((recivedData) => {
-        return recivedData.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      const response = await fetch("http://localhost:3000/orders", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          order: { items: mealsAddedToCart, customer: data },
+        }),
       });
-    setBtnColor("redColor");
+      const rawData = await response.json();
+      return console.log(rawData);
+    } catch (err) {
+      console.log(err);
+    }
   }
-
+  console.log(isSubmitting);
   return (
     <dialog open={isopen}>
       <form onSubmit={handleSubmit(handleformAfterSubmit)}>
@@ -100,7 +94,11 @@ export default function Checkout({ isopen, mealsAddedToCart }) {
           />
         </label>
         {errors.poxcode && <p className={btnColor}>{errors.poxcode.message}</p>}
-        <button className={btnColor} disabled={isSubmitting} type="submit">
+        <button
+          className={isSubmitting ? "blackColor" : "redColor"}
+          disabled={isSubmitting}
+          type="submit"
+        >
           submit
         </button>
       </form>
