@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+export const CtxValue = createContext(null);
 export  function FoodComponent({ children }) {
   const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
   const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
@@ -45,7 +46,6 @@ export  function FoodComponent({ children }) {
       }, 1000);
     });
   }
-  const contextValue={cartBtnClicked}
-  return <CtxValue.Provider value={orderBtnClicked}>{children}</CtxValue.Provider>;
+ 
+  return <CtxValue.Provider value={{orderBtnClicked,mealsAddedToCart}}>{children}</CtxValue.Provider>;
 }
-export const CtxValue = createContext(null);

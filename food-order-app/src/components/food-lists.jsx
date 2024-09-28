@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { CtxValue } from "../../hooks/foodlist-context-api";
 export default function FoodLists({ handleclickedList }) {
-  const contextValue = useContext(CtxValue);
-  console.log(contextValue);
+  const orderBtnClicked = useContext(CtxValue);
+  console.log(orderBtnClicked);
   useEffect(() => {
     fetch("http://localhost:3000/meals", { method: "GET" })
       .then((data) => {
@@ -12,9 +12,11 @@ export default function FoodLists({ handleclickedList }) {
       .then((rawData) => {
         setFetchedData(rawData);
       });
-  }, []);
-  return (
-    <p>hi</p>
+    }, []);
+    return (
+      <p>hi</p>
+      );
+    }
     // <div id="meals">
     //   {fetchedData.map((mealsLists) => {
     //     const imageUrl = "http://localhost:3000/" + mealsLists.image;
@@ -38,5 +40,3 @@ export default function FoodLists({ handleclickedList }) {
     //     );
     //   })}
     // </div>
-  );
-}
