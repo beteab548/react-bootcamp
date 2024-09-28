@@ -1,60 +1,22 @@
-import Header from "./components/header";
-import { useState } from "react";
-import CartModal from "../src/components/cartModla";
-import FoodLists from "../src/components/food-lists";
-import Checkout from "../src/components/checkout";
+// import Header from "./components/header";
+// import CartModal from "../src/components/cartModla";
+// import FoodLists from "../src/components/food-lists";
+// import Checkout from "../src/components/checkout";
+import { FoodComponent } from "../hooks/foodlist-context-api";
+import { useContext } from "react";
 function App() {
-  const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
-  const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
-  const [orderBtnClicked, setOrderBtnClicked] = useState(false);
-  function orderIsClicked() {
-    setOrderBtnClicked((prevValue) => {
-      return !prevValue;
-    });
-  }
-  function handleclickedList(newMeal) {
-    if (!newMeal.qnt) {
-      newMeal.qnt = 1;
-    }
-    let mealExist = false;
-    setMealsAddedToCart((prevValue) => {
-      prevValue.map((cartMeals) => {
-        if (newMeal.id == cartMeals.id) {
-          cartMeals.qnt = cartMeals.qnt + 1;
-          mealExist = true;
-        }
-      });
-      if (mealExist) {
-        return [...prevValue];
-      } else {
-        return [...prevValue, newMeal];
-      }
-    });
-  }
-  function cartBtnClicked() {
-    setCartBtnClicked((prevValue) => {
-      return !prevValue;
-    });
-  }
-  function RemoveItemFromCart(mealToErase) {
-    console.log(mealsAddedToCart);
-
-    setTimeout(() => {
-      setMealsAddedToCart((prevValue) => {
-        return [
-          ...prevValue.filter((meals) => {
-            return mealToErase.id !== meals.id;
-          }),
-        ];
-      }, 1000);
-    });
-  }
-
+  const contextValue = useContext(FoodComponent);
+  console.log(contextValue);
   return (
     <>
-    
+      <FoodComponent />
       <Header cartBtnClicked={cartBtnClicked} cartItmes={mealsAddedToCart} />
-      {orderBtnClicked && <Checkout isopen={orderBtnClicked} mealsAddedToCart={mealsAddedToCart} />}
+      {orderBtnClicked && (
+        <Checkout
+          isopen={orderBtnClicked}
+          mealsAddedToCart={mealsAddedToCart}
+        />
+      )}
       {!orderBtnClicked && (
         <CartModal
           isOpen={cartBtnIsClicked}
@@ -64,6 +26,7 @@ function App() {
         />
       )}
       <FoodLists handleclickedList={handleclickedList} />
+      <FoodComponent />
     </>
   );
 }

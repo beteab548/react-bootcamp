@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
+
 export default function Checkout({ isopen, mealsAddedToCart }) {
   const {
     register,
@@ -18,13 +19,13 @@ export default function Checkout({ isopen, mealsAddedToCart }) {
         }),
       });
       const rawData = await response.json();
-      return console.log(rawData);
+      return 
     } catch (err) {
       console.log(err);
     }
   }
 
-  console.log(isSubmitting);
+ 
   return (
     <dialog open={isopen} className="dialog">
       <form onSubmit={handleSubmit(handleformAfterSubmit)}>
