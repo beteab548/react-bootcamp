@@ -1,12 +1,12 @@
-import redux from "redux";
-const reducerFunction = (state = { counter: 0 }, action) => {
+import { createStore } from "redux";
+const ReduxFunction = (state = { counter: 0 }, action) => {
   if (action.type === "increment") {
     return { counter: state.counter + 1 };
   }
   if (action.type === "decrement") {
     return { counter: state.counter - 1 };
   }
-  return { counter: 0 };
+  return  state ;
 };
-const store = redux.createStore();
-export default store
+const store = createStore(ReduxFunction);
+export default store;
