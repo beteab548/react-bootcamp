@@ -1,9 +1,11 @@
-import { createContext, useState, useContext } from "react";
-export const CtxValue = createContext(null);
-export  function FoodComponent({ children }) {
+import { createContext, useState } from "react";
+export const CtxValue = createContext(false);
+export function FoodComponent({ children }) {
   const [cartBtnIsClicked, setCartBtnClicked] = useState(false);
-  const [mealsAddedToCart, setMealsAddedToCart] = useState([]);
-  const [orderBtnClicked, setOrderBtnClicked] = useState(false);
+  const [mealsAddedToCart, setMealsAddedToCart] = useState({
+    items: { i: "f" },
+  });
+  const [orderBtnClicked, setOrderBtnClicked] = useState(true);
   function orderIsClicked() {
     setOrderBtnClicked((prevValue) => {
       return !prevValue;
@@ -35,7 +37,7 @@ export  function FoodComponent({ children }) {
   }
   function RemoveItemFromCart(mealToErase) {
     console.log(mealsAddedToCart);
-    
+
     setTimeout(() => {
       setMealsAddedToCart((prevValue) => {
         return [
@@ -46,6 +48,8 @@ export  function FoodComponent({ children }) {
       }, 1000);
     });
   }
- 
-  return <CtxValue.Provider value={{orderBtnClicked,mealsAddedToCart}}>{children}</CtxValue.Provider>;
+
+  return (
+    <CtxValue.Provider value={orderBtnClicked}>{children}</CtxValue.Provider>
+  );
 }

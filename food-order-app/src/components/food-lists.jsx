@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { CtxValue } from "../../hooks/foodlist-context-api";
 export default function FoodLists({ handleclickedList }) {
-  const orderBtnClicked = useContext(CtxValue);
-  console.log(orderBtnClicked);
+  const passedValue = useContext(CtxValue);
+  console.log(passedValue);
   useEffect(() => {
     fetch("http://localhost:3000/meals", { method: "GET" })
       .then((data) => {
