@@ -7,18 +7,17 @@ export default function Counter() {
     return state.counter;
   });
   const showCounter = useSelector((state) => {
-    return state;
+    return state.showCounter;
   });
   function incrementFunction() {
-    dispatch(counterActions.increment);
+    dispatch(counterActions.increment());
   }
   function decrementFunction() {
-    dispatch(counterActions.decrement);
+    dispatch(counterActions.decrement());
   }
   function toggleCounterHandler() {
-    dispatch(counterActions.toggleCounter);
+    dispatch(counterActions.toggleCounter());
   }
-  console.log(latestState);
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
