@@ -4,10 +4,10 @@ import { counterActions } from "../../store/index.js";
 export default function Counter() {
   const dispatch = useDispatch();
   const latestState = useSelector((state) => {
-    return state.counter;
+    return state.counter.counter;
   });
   const showCounter = useSelector((state) => {
-    return state.showCounter;
+    return state.counter.showCounter;
   });
   function incrementFunction() {
     dispatch(counterActions.increment());
