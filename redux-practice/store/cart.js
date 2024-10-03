@@ -30,13 +30,21 @@ const cartSlice = createSlice({
         return cartItems.id == item.id;
       });
       const existingProductQnt = state.cartItems[existingProductIndex].qnt;
-      if (existingProductQnt < 1) {
-        console.log("items removed");
+     
+      if (existingProductQnt <= 1) {
+        state.cartItems = state.cartItems.filter((itmes) => {
+          return itmes.id !== item.id;
+        });
+        return;
       }
       state.cartItems[existingProductIndex].qnt =
         state.cartItems[existingProductIndex].qnt - 1;
+    },
+    showModal(state) {
+      state.showModal = !state.showModal;
     },
   },
 });
 const store = createStore(cartSlice.reducer);
 export const cartSliceAction = cartSlice.actions;
+export default store;

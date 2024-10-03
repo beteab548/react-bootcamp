@@ -1,26 +1,47 @@
+import { useDispatch } from "react-redux";
 import classes from "./CartItem.module.css";
+import { cartSliceAction } from "../../../store/cart";
+export default function CartItem({ item }) {
+  const dispatch = useDispatch();
 
-export default function CartItem(props) {
-  const { title, quantity, total, price } = props.item;
-
-  return (
-    <li className={classes.item}>
-      <header>
-        <h3>{title}</h3>
-        <div className={classes.price}>
-          ${total.toFixed(2)}{" "}
-          <span className={classes.itemprice}>(${price.toFixed(2)}/item)</span>
+  function onclick(prop, item) {
+    prop == "increase"
+      ? dispatch(cartSliceAction.increaseQunatity(item))
+      : dispatch(cartSliceAction.decreaseQunatity(item));
+  }
+  return item.map((item) => {
+    const { title, price, qnt, description } = item;
+    return (
+      <li key={description} className={classes.item}>
+        <header>
+          <h3>{title}</h3>
+          <div className={classes.price}>
+            $total : {price * qnt}{" "}
+            <span className={classes.itemprice}>(${price}/item)</span>
+          </div>
+        </header>
+        <div className={classes.details}>
+          <div className={classes.qnt}>
+            x <span>{qnt}</span>
+          </div>
+          <div className={classes.actions}>
+            <button
+              onClick={() => {
+                onclick("increase", item);
+              }}
+            >
+              +
+            </button>
+            <button
+              onClick={() => {
+                onclick("decrease", item);
+              }}
+            >
+              -
+            </button>
+          </div>
         </div>
-      </header>
-      <div className={classes.details}>
-        <div className={classes.quantity}>
-          x <span>{quantity}</span>
-        </div>
-        <div className={classes.actions}>
-          <button>-</button>
-          <button>+</button>
-        </div>
-      </div>
-    </li>
-  );
+      </li>
+    );
+  });
 }
