@@ -71,7 +71,7 @@ export const sendCartData = (cart) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: "hey there" }),
+        body: JSON.stringify(cart),
       });
       if (!response.ok) {
         throw new Error("failed sending data!");

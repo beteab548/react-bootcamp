@@ -5,13 +5,11 @@ import { cartSliceAction } from "../../../store/cart";
 import { sendCartData } from "../../../store/cart";
 export default function ProductItem({ item }) {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => {
-    return state.cartItems;
-  });
   const { title, price, description } = item;
   function onClick(items) {
     dispatch(cartSliceAction.addToCart(items));
-    dispatch(sendCartData(cartItems));
+
+    dispatch(sendCartData(items));
   }
   return (
     <>

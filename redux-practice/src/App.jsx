@@ -10,7 +10,6 @@ export default function App() {
   const notification = useSelector((state) => {
     return state.notification;
   });
-  console.log(notification);
   return (
     <Layout>
       {notification && <Notification status={notification} />}
