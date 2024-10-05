@@ -1,5 +1,7 @@
 import { createStore, createSlice, applyMiddleware } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
+import { composeWithDevTools } from '@redux-devtools/extension';
+
 const initialState = {
   cartItems: [],
   showModal: false,
@@ -97,5 +99,5 @@ export const sendCartData = (cart) => {
     }
   };
 };
-const store = createStore(cartSlice.reducer, applyMiddleware(thunk));
+const store = createStore(cartSlice.reducer, composeWithDevTools(applyMiddleware(thunk)));
 export default store;
