@@ -68,23 +68,24 @@ export const sendCartData = (cart) => {
     const requestFunction = async () => {
       const response = await fetch("http://localhost:3001/addToCart", {
         method: "POST",
-        body: JSON.stringify(cart),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: "hey there" }),
       });
       if (!response.ok) {
         throw new Error("failed sending data!");
       }
-      else(
-        dispatch(
-          cartSliceAction.showNotification({
-            error: "successfully sent cart!",
-            isSending: false,
-            dataSent: true,
-          })
-        )
-      )
     };
     try {
       await requestFunction();
+      dispatch(
+        cartSliceAction.showNotification({
+          error: null,
+          isSending: false,
+          dataSent: true,
+        })
+      );
     } catch (err) {
       dispatch(
         cartSliceAction.showNotification({
