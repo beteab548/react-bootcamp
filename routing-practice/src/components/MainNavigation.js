@@ -1,16 +1,32 @@
-import classes from './MainNavigation.module.css';
-
+import classes from "./MainNavigation.module.css";
+import { NavLink, Outlet } from "react-router-dom";
 function MainNavigation() {
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
           <li>
-            <a>Home</a>
+            <NavLink
+              to={"/"}
+              className={({ isActive }) => {
+                return isActive ? classes.active : undefined;
+              }}
+              end
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <a>Events</a>
+            <NavLink
+              to={"/events"}
+              className={({ isActive }) => {
+                return isActive ? classes.active : undefined;
+              }}
+            >
+              Events
+            </NavLink>
           </li>
+          <Outlet />
         </ul>
       </nav>
     </header>
