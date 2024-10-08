@@ -1,30 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import classes from "./EventsList.module.css";
-const dummyEvents = [
-  {
-    id: "e1",
-    title: "A dummy event",
-    date: "2023-02-22",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-  {
-    id: "e2",
-    title: "A dummy event-2",
-    date: "2023-02-22",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-];
-
-function EventsList({ events }) {
+function EventsList() {
+  const events = useLoaderData();
   return (
     <div className={classes.events}>
       <h1>All Events</h1>
       <ul className={classes.list}>
-        {dummyEvents.map((event) => (
+        {events.events.map((event) => (
           <li key={event.id} className={classes.item}>
             <Link to={`/events/${event.id}`}>
               <img src={event.image} alt={event.title} />
@@ -41,3 +23,12 @@ function EventsList({ events }) {
 }
 
 export default EventsList;
+export async function Loader() {
+  const response = await fetch("http://localhost:8080/events");
+  const fetchedData = response.json();
+
+  if (!response.ok) {
+    return new Error("error fetching events");
+  }
+  return fetchedData;
+}
