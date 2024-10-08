@@ -100,4 +100,5 @@ export const sendCartData = (cart) => {
   };
 };
 const store = createStore(cartSlice.reducer, composeWithDevTools(applyMiddleware(thunk)));
+
 export default store;
