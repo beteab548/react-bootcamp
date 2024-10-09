@@ -38,17 +38,20 @@ function App() {
           element: <EventsNavigation />,
           children: [
             {
-              index: true,
+              path: "",
               element: <EventsList />,
               loader: eventsLoader,
             },
             {
-              path: "/events/:eventID",
-              element: <EventItem />,
+              path: ":eventID",
+              id: "event-loader",
               loader: eventLoader,
+              children: [
+                { path: "", element: <EventItem /> },
+                { path: "edit", element: <EventForm /> },
+              ],
             },
-            { path: "/events/new", element: <EventForm /> },
-            { path: "/events/:eventId/?edit", element: <EventForm /> },
+            { path: "new", element: <EventForm /> },
           ],
         },
       ],
