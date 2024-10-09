@@ -21,14 +21,14 @@ function EventsList() {
     </div>
   );
 }
-// 0911173239
 export default EventsList;
 export async function Loader() {
-  const response = await fetch("http://localhost:8080/events");
-  const fetchedData = response.json();
-
+  const response = await fetch("http://localhost:8080/eventsghjgh");
   if (!response.ok) {
-    return new Error("error fetching events");
+    throw new Response(JSON.stringify({ message: "server is not working!" }), {
+      status: 500,
+    });
+  } else {
+    return response;
   }
-  return fetchedData;
 }
