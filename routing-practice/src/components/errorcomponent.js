@@ -2,7 +2,6 @@ import { useRouteError } from "react-router-dom";
 
 function ErrorDisplay() {
   const error = useRouteError();
-  console.log(error.status);
   let message;
   if (error.status === 500) {
     message = "server is not working";

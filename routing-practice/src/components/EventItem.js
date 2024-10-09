@@ -1,40 +1,18 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, json, useLoaderData } from "react-router-dom";
 import classes from "./EventItem.module.css";
-const dummyEvents = [
-  {
-    id: "e1",
-    title: "A dummy event",
-    date: "2023-02-22",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-  {
-    id: "e2",
-    title: "A dummy event-2",
-    date: "2023-02-22",
-    image:
-      "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-    description: "Join this amazing event and connect with fellow developers.",
-  },
-];
-
-function EventItem({ event }) {
-  const param = useParams();
-  const eventItem = dummyEvents.filter((events) => {
-    return events.id === param.eventID;
-  });
+function EventItem() {
+  const {event} = useLoaderData();
   function startDeleteHandler() {
     // ...
   }
   return (
     <article className={classes.event}>
-      <img src={eventItem[0].image} alt={eventItem[0].title} />
-      <h1>{eventItem[0].title}</h1>
-      <time>{eventItem[0].date}</time>
-      <p>{eventItem[0].description}</p>
+      <img src={event.image} alt={event.title} />
+      <h1>{event.title}</h1>
+      <time>{event.date}</time>
+      <p>{event.description}</p>
       <menu className={classes.actions}>
-        <Link to={`/events/${eventItem[0].id}/edit`}>Edit</Link>
+        <Link to={`/events/${event.id}/edit`}>Edit</Link>
         <button onClick={startDeleteHandler}>Delete</button>
       </menu>
     </article>
@@ -42,3 +20,15 @@ function EventItem({ event }) {
 }
 
 export default EventItem;
+export async function eventLoader({ request, params }) {
+  const id = params.eventID;
+  const response = await fetch("http://localhost:8080/events/" + id);
+  if (!response.ok) {
+    throw new Response(
+      JSON.stringify({ message: "this event is not available!" }),
+      { status: 500 }
+    );
+  } else {
+    return response;
+  }
+}

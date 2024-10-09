@@ -23,7 +23,7 @@ function EventsList() {
 }
 export default EventsList;
 export async function Loader() {
-  const response = await fetch("http://localhost:8080/eventsghjgh");
+  const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
     throw new Response(JSON.stringify({ message: "server is not working!" }), {
       status: 500,

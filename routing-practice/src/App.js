@@ -22,7 +22,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainNavigation from "./components/MainNavigation";
 import EventsList, { Loader as eventsLoader } from "./components/EventsList";
-import EventItem from "./components/EventItem";
+import EventItem, { eventLoader } from "./components/EventItem";
 import EventForm from "./components/EventForm";
 import EventsNavigation from "./components/EventsNavigation";
 import ErrorDisplay from "./components/errorcomponent";
@@ -42,7 +42,11 @@ function App() {
               element: <EventsList />,
               loader: eventsLoader,
             },
-            { path: "/events/:eventID", element: <EventItem /> },
+            {
+              path: "/events/:eventID",
+              element: <EventItem />,
+              loader: eventLoader,
+            },
             { path: "/events/new", element: <EventForm /> },
             { path: "/events/:eventId/?edit", element: <EventForm /> },
           ],
