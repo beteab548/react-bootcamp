@@ -22,8 +22,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainNavigation from "./components/MainNavigation";
 import EventsList, { Loader as eventsLoader } from "./components/EventsList";
-import EventItem, { eventLoader } from "./components/EventItem";
-import EventForm,{createEvent} from "./components/EventForm";
+import EventItem, {
+  eventDeleteAction,
+  eventLoader,
+} from "./components/EventItem";
+import EventForm, { createEvent } from "./components/EventForm";
 import EventsNavigation from "./components/EventsNavigation";
 import ErrorDisplay from "./components/errorcomponent";
 function App() {
@@ -46,12 +49,13 @@ function App() {
               path: ":eventID",
               id: "event-loader",
               loader: eventLoader,
+              action: eventDeleteAction,
               children: [
                 { path: "", element: <EventItem /> },
                 { path: "edit", element: <EventForm /> },
               ],
             },
-            { path: "new", element: <EventForm /> ,action:createEvent},
+            { path: "new", element: <EventForm />, action: createEvent },
           ],
         },
       ],
