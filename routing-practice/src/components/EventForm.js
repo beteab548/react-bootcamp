@@ -1,14 +1,34 @@
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import {
+  useNavigate,
+  useRouteLoaderData,
+  Form,
+  redirect,
+} from "react-router-dom";
 import classes from "./EventForm.module.css";
 function EventForm() {
   const event = useRouteLoaderData("event-loader") || null;
-  console.log(event);
+  // console.log(event);
   const navigate = useNavigate();
   function cancelHandler() {
     navigate("..");
   }
+  // async function handelSaveButton(e, event) {
+  // e.preventDefault();
+  // console.log(event.id);
+  // try {
+  //   await fetch(`http://localhost:8080/events/${event.id}`, {
+  //     method: "patch",
+  //     body: JSON.stringify(event),
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  // }
+  // // const data = await response.json();
+  // // console.log(data);
+  // navigate(`/events/${event.id}`);
+  // }
   return (
-    <form className={classes.form}>
+    <Form method="POST" className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
         <input
@@ -46,7 +66,7 @@ function EventForm() {
           name="description"
           rows="5"
           required
-          defaultValue={event ? event.event.descriotion : ""}
+          defaultValue={event ? event.event.description : ""}
         />
       </p>
       <div className={classes.actions}>
@@ -55,7 +75,29 @@ function EventForm() {
         </button>
         <button>Save</button>
       </div>
-    </form>
+    </Form>
   );
 }
 export default EventForm;
+export async function createEvent({ request }) {
+  const response = await request.formData();
+  const formData = {
+    title: response.get("title"),
+    image: response.get("image"),
+    description: response.get("description"),
+    date: response.get("date"),
+  };
+  const res = await fetch("http://localhost:8080/events", {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+  if (!res.ok) {
+    throw new Response(
+      JSON.stringify({ message: "failed creating new events" }),
+      { status: 500 }
+    );
+  } else {
+    return redirect("/events");
+  }
+}

@@ -23,7 +23,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainNavigation from "./components/MainNavigation";
 import EventsList, { Loader as eventsLoader } from "./components/EventsList";
 import EventItem, { eventLoader } from "./components/EventItem";
-import EventForm from "./components/EventForm";
+import EventForm,{createEvent} from "./components/EventForm";
 import EventsNavigation from "./components/EventsNavigation";
 import ErrorDisplay from "./components/errorcomponent";
 function App() {
@@ -51,7 +51,7 @@ function App() {
                 { path: "edit", element: <EventForm /> },
               ],
             },
-            { path: "new", element: <EventForm /> },
+            { path: "new", element: <EventForm /> ,action:createEvent},
           ],
         },
       ],
