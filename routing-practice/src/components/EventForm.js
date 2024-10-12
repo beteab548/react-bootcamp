@@ -4,14 +4,16 @@ import {
   Form,
   redirect,
   useNavigation,
+  useActionData,
 } from "react-router-dom";
 import classes from "./EventForm.module.css";
 function EventForm() {
   const event = useRouteLoaderData("event-loader") || null;
-  // console.log(event);
+  const ErrorData = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  console.log(ErrorData ? ErrorData.errors : null);
   function cancelHandler() {
     navigate("..");
   }
@@ -33,12 +35,18 @@ function EventForm() {
   return (
     <Form method="POST" className={classes.form}>
       <p>
+        {ErrorData &&
+          ErrorData.errors &&
+          Object.values(ErrorData.errors).map((err) => {
+         return   <li>{err}</li>;
+          })}
+      </p>
+      <p>
         <label htmlFor="title">Title</label>
         <input
           id="title"
           type="text"
           name="title"
-          required
           defaultValue={event ? event.event.title : ""}
         />
       </p>
@@ -48,7 +56,6 @@ function EventForm() {
           id="image"
           type="url"
           name="image"
-          required
           defaultValue={event ? event.event.image : ""}
         />
       </p>
@@ -58,7 +65,6 @@ function EventForm() {
           id="date"
           type="date"
           name="date"
-          required
           defaultValue={event ? event.event.date : ""}
         />
       </p>
@@ -68,7 +74,6 @@ function EventForm() {
           id="description"
           name="description"
           rows="5"
-          required
           defaultValue={event ? event.event.description : ""}
         />
       </p>
@@ -97,11 +102,8 @@ export async function createEvent({ request }) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
   });
-  if (!res.ok) {
-    throw new Response(
-      JSON.stringify({ message: "failed creating new events" }),
-      { status: 500 }
-    );
+  if (res.status == 422) {
+    return res;
   } else {
     return redirect("/events");
   }
