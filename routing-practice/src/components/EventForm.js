@@ -3,12 +3,15 @@ import {
   useRouteLoaderData,
   Form,
   redirect,
+  useNavigation,
 } from "react-router-dom";
 import classes from "./EventForm.module.css";
 function EventForm() {
   const event = useRouteLoaderData("event-loader") || null;
   // console.log(event);
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   function cancelHandler() {
     navigate("..");
   }
@@ -73,7 +76,9 @@ function EventForm() {
         <button type="button" onClick={cancelHandler}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? "submitting" : "Save"}
+        </button>
       </div>
     </Form>
   );

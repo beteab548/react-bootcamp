@@ -47,7 +47,6 @@ export async function eventLoader({ request, params }) {
 }
 export async function eventDeleteAction({ params }) {
   const eventId = params.eventID;
-  console.log(eventId);
   const response = await fetch("http://localhost:8080/events/" + eventId, {
     method: "DELETE",
   });
