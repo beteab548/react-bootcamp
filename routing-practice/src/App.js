@@ -26,7 +26,7 @@ import EventItem, {
   eventDeleteAction,
   eventLoader,
 } from "./components/EventItem";
-import EventForm, { createEvent } from "./components/EventForm";
+import EventForm, { EventSubmission } from "./components/EventForm";
 import EventsNavigation from "./components/EventsNavigation";
 import ErrorDisplay from "./components/errorcomponent";
 function App() {
@@ -52,10 +52,18 @@ function App() {
               action: eventDeleteAction,
               children: [
                 { path: "", element: <EventItem /> },
-                { path: "edit", element: <EventForm /> },
+                {
+                  path: "edit",
+                  element: <EventForm method={"PATCH"} />,
+                  action: EventSubmission,
+                },
               ],
             },
-            { path: "new", element: <EventForm />, action: createEvent },
+            {
+              path: "new",
+              element: <EventForm method={"POST"} />,
+              action: EventSubmission,
+            },
           ],
         },
       ],
