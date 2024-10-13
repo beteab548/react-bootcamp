@@ -1,25 +1,38 @@
 import { Await, defer, useLoaderData } from "react-router-dom";
 import EventsList from "../EventsList";
+import { Suspense } from "react";
 
 function EventLists() {
-  const events = useLoaderData();
-  console.log(events);
-  <React.Suspense fallback="loading">
-    <Await resolve={events}>
-      {(events) => {
-        return <EventsList events={events} />;
-      }}
-    </Await>
-  </React.Suspense>;
+  const { eventsData } = useLoaderData();
+  console.log(eventsData);
+  return (
+    <Suspense
+      fallback={
+        <p style={{ textAlign: "center", backgroundColor: "red" }}>
+          loading...
+        </p>
+      }
+    >
+      <Await resolve={eventsData} errorElement={<p>error occured</p>}>
+        {(events) => {
+          return <EventsList events={events} />;
+        }}
+      </Await>
+    </Suspense>
+  );
 }
 export default EventLists;
 export async function Loader() {
-  const response = fetch("http://localhost:8080/events");
+  const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
-    throw new Response(JSON.stringify({ message: "server is not working!" }), {
-      status: 500,
-    });
+    throw new Response(
+      JSON.stringify({ message: "server is not working now!" }),
+      {
+        status: 500,
+      }
+    );
   } else {
-    return defer({ eventsData: response });
+    const resData = await response.json();
+    return defer({ eventsData: resData.events });
   }
 }

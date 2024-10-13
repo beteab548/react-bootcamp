@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainNavigation from "./components/MainNavigation";
-import EventsList, { Loader as eventsLoader } from "./components/EventsList";
 import EventItem, {
   eventDeleteAction,
   eventLoader,
@@ -8,7 +7,12 @@ import EventItem, {
 import EventForm, { EventSubmission } from "./components/EventForm";
 import EventsNavigation from "./components/EventsNavigation";
 import ErrorDisplay from "./components/errorcomponent";
-import NewsletterPage ,{action as newsletterAction}from "./components/pages/newsLettes";
+import NewsletterPage, {
+  action as newsletterAction,
+} from "./components/pages/newsLettes";
+import EventLists, {
+  Loader as eventsLoader,
+} from "./components/pages/eventLists";
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,7 +26,7 @@ function App() {
           children: [
             {
               path: "",
-              element: <EventsList />,
+              element: <EventLists />,
               loader: eventsLoader,
             },
             {
