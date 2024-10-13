@@ -1,7 +1,6 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "./EventsList.module.css";
-function EventsList() {
-  const events = useLoaderData();
+function EventsList({ events }) {
   return (
     <div className={classes.events}>
       <h1>All Events</h1>
@@ -22,13 +21,3 @@ function EventsList() {
   );
 }
 export default EventsList;
-export async function Loader() {
-  const response = await fetch("http://localhost:8080/events");
-  if (!response.ok) {
-    throw new Response(JSON.stringify({ message: "server is not working!" }), {
-      status: 500,
-    });
-  } else {
-    return response;
-  }
-}
