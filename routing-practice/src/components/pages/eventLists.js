@@ -3,17 +3,16 @@ import EventsList from "../EventsList";
 import { Suspense } from "react";
 
 function EventLists() {
-  const { eventsData } = useLoaderData();
-  console.log(eventsData);
+  const { events } = useLoaderData();
   return (
     <Suspense
       fallback={
-        <p style={{ textAlign: "center", backgroundColor: "red" }}>
+        <p style={{ textAlign: "center", backgroundColor: "grey" }}>
           loading...
         </p>
       }
     >
-      <Await resolve={eventsData} errorElement={<p>error occured</p>}>
+      <Await resolve={events} errorElement={<p>error occured</p>}>
         {(events) => {
           return <EventsList events={events} />;
         }}
@@ -22,7 +21,7 @@ function EventLists() {
   );
 }
 export default EventLists;
-export async function Loader() {
+async function fetchEvents() {
   const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
     throw new Response(
@@ -33,6 +32,11 @@ export async function Loader() {
     );
   } else {
     const resData = await response.json();
-    return defer({ eventsData: resData.events });
+    return resData;
   }
+}
+export async function Loader() {
+  return defer({
+    events: fetchEvents(),
+  });
 }
