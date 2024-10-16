@@ -10,7 +10,6 @@ export async function action({ request }) {
   const mode = searchParams.get("mode") || "login";
   const data = await request.formData();
   const formData = { email: data.get("email"), password: data.get("password") };
-  console.log(formData);
   const response = await fetch("http://localhost:8080/" + mode, {
     method: "post",
     headers: { "Content-Type": "application/json" },
