@@ -16,14 +16,15 @@ export async function action({ request }) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),
   });
+  console.log(response.status);
   if (mode !== "login" && mode !== "signup") {
     throw json({ message: "unsupported mode" }, { status: 500 });
   }
-  if (!response.ok) {
-    throw json({ message: "response error! " }, { status: 500 });
-  }
   if (response.status === 422 || response.status === 401) {
     return response;
+  }
+  if (!response.ok) {
+    throw json({ message: "response error! " }, { status: 500 });
   }
   return redirect("/");
 }
