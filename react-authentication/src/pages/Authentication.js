@@ -25,5 +25,7 @@ export async function action({ request }) {
   if (!response.ok) {
     throw json({ message: "response error! " }, { status: 500 });
   }
+  const resData = await response.json();
+  localStorage.setItem("token", resData.token);
   return redirect("/");
 }
