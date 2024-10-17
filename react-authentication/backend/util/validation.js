@@ -8,7 +8,7 @@ function isValidDate(value) {
 }
 
 function isValidImageUrl(value) {
-  return value && value.startsWith('http');
+  return value && value.startsWith('https');
 }
 
 function isValidEmail(value) {

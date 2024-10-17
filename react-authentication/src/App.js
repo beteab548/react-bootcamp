@@ -16,14 +16,15 @@ import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
-import { LoginAuthenticationLoader, logoutAction,getToken } from "./pages/logout";
+import { logoutAction } from "./pages/logout";
+import { LoginAuthenticationLoader, getToken } from "./util/auth";
 const router = createBrowserRouter([
   {
     path: "/",
-    id:'login-check',
+    id: "login-check",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
-    loader:getToken,
+    loader: getToken,
     children: [
       { index: true, element: <HomePage /> },
       { path: "auth", element: <AuthenticationPage />, action: authAction },
