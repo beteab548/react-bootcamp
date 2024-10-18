@@ -25,6 +25,9 @@ export async function action({ request }) {
     throw json({ message: "response error! " }, { status: 500 });
   }
   const resData = await response.json();
+  const expirateDate = new Date();
+  expirateDate.setHours(expirateDate.getHours() + 1);
   localStorage.setItem("token", resData.token);
+  localStorage.setItem("expiration", expirateDate.toISOString);
   return redirect("/");
 }
