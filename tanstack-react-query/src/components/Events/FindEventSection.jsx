@@ -6,17 +6,18 @@ import ErrorBlock from "../UI/ErrorBlock";
 import LoadingIndicator from "../UI/LoadingIndicator";
 import EventItem from "./EventItem";
 export default function FindEventSection() {
-  const [ searchedText, setSearchedText ] = useState();
+  const [searchedText, setSearchedText] = useState();
   const searchElement = useRef();
   let content;
   const navigate = useNavigate();
-  const { data, isError, error, isPending } = useQuery({
+  const { data, isError, error, isLoading } = useQuery({
+    enabled: searchedText != undefined,
     queryFn: ({ signal }) => {
-    return  fetchEvents({ searchedText, signal });
+      return fetchEvents({ searchedText, signal });
     },
     queryKey: ["events", { search: searchedText }],
   });
-  if (isPending) {
+  if (isLoading) {
     content = <LoadingIndicator />;
   }
   if (data) {
