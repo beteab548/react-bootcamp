@@ -9,23 +9,27 @@ export default function NewEventsSection() {
     queryKey: ["events"],
     queryFn: fetchEvents,
     gcTime: 0,
-    staleTime: 0,//refetch data after waiting for this long
+    staleTime: 0, //refetch data after waiting for this long
   });
   let content;
 
   if (isPending) {
-    content = <LoadingIndicator />;
-  }
+    content = 
+       <LoadingIndicator />;
+    };
+  
 
   if (isError) {
-    content = (
-      <ErrorBlock
-        title="An error occurred"
-        message={error.info?.message || "Failed to fetch events"}
-      />
-    );
+    if (error.info?.message)
+      content =
+        
+          <ErrorBlock
+            title="An error occurred"
+            message={error.info?.message || "Failed to fetch events"}
+          />
+        ;
+      
   }
-
   if (data) {
     content = (
       <ul className="events-list">
@@ -43,7 +47,7 @@ export default function NewEventsSection() {
       <header>
         <h2>Recently added events</h2>
       </header>
-      {content}
+    {content}
     </section>
   );
-}
+  }
