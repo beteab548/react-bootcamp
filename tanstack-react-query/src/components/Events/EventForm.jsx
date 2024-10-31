@@ -1,21 +1,39 @@
-import { useState } from 'react';
-
-import ImagePicker from '../ImagePicker.jsx';
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ImagePicker from "../ImagePicker.jsx";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createNewEvent, fetchSelectableImages } from "../../util/fetchData.js";
+import ErrorBlock from "../UI/ErrorBlock.jsx";
+import { QueryClients } from "../../App.jsx";
 export default function EventForm({ inputData, onSubmit, children }) {
-  const [selectedImage, setSelectedImage] = useState(inputData?.image);
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(inputData?.image); 
+  const { data, isLoading, isError } = useQuery({
+    queryFn: fetchSelectableImages,
+    queryKey: ["images"],
+  });
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: createNewEvent,
+    onSuccess: () => {
+QueryClients.invalidateQueries({queryKey:['events']})
+      navigate("../");
+    },
+  });
+  let content;
+  if (isError) {
+    content = <ErrorBlock title={"error occured while fetching images!"} />;
+  }
 
   function handleSelectImage(image) {
     setSelectedImage(image);
   }
-
   function handleSubmit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-
     onSubmit({ ...data, image: selectedImage });
+    mutate({ event: { ...data, image: selectedImage } });
   }
 
   return (
@@ -26,13 +44,13 @@ export default function EventForm({ inputData, onSubmit, children }) {
           type="text"
           id="title"
           name="title"
-          defaultValue={inputData?.title ?? ''}
+          defaultValue={inputData?.title ?? ""}
         />
       </p>
-
       <div className="control">
+        {content}
         <ImagePicker
-          images={[]}
+          images={data ? data : []}
           onSelect={handleSelectImage}
           selectedImage={selectedImage}
         />
@@ -43,7 +61,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
         <textarea
           id="description"
           name="description"
-          defaultValue={inputData?.description ?? ''}
+          defaultValue={inputData?.description ?? ""}
         />
       </p>
 
@@ -54,7 +72,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
             type="date"
             id="date"
             name="date"
-            defaultValue={inputData?.date ?? ''}
+            defaultValue={inputData?.date ?? ""}
           />
         </p>
 
@@ -64,7 +82,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
             type="time"
             id="time"
             name="time"
-            defaultValue={inputData?.time ?? ''}
+            defaultValue={inputData?.time ?? ""}
           />
         </p>
       </div>
@@ -75,7 +93,7 @@ export default function EventForm({ inputData, onSubmit, children }) {
           type="text"
           id="location"
           name="location"
-          defaultValue={inputData?.location ?? ''}
+          defaultValue={inputData?.location ?? ""}
         />
       </p>
 
