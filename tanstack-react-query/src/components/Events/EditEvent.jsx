@@ -19,7 +19,7 @@ export default function EditEvent() {
     isError: IsError,
   } = useMutation({ mutationFn: updateEvent });
   function handleSubmit(formData) {
-    mutate({ id,event: formData });
+    mutate({ id: id, event: formData });
     navigate("../");
   }
   function handleClose() {

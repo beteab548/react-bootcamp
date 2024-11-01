@@ -126,7 +126,8 @@ app.put("/events/:id", async (req, res) => {
 
   const eventsFileContent = await fs.readFile("./data/events.json");
   const events = JSON.parse(eventsFileContent);
-  const eventIndex = events.findIndex((event) => event.id === id);
+  
+  const eventIndex = events.findIndex((event) => event.id == id);
   if (eventIndex === -1) {
     return res.status(404).json({ message: "Event not found" });
   }
@@ -139,10 +140,9 @@ app.put("/events/:id", async (req, res) => {
 });
 app.delete("/events/:id", async (req, res) => {
   const { id } = req.params;
-
   const eventsFileContent = await fs.readFile("./data/events.json");
   const events = JSON.parse(eventsFileContent);
-
+  6;
   const eventIndex = events.findIndex((event) => event.id === id);
 
   if (eventIndex === -1) {
