@@ -50,7 +50,7 @@ QueryClients.invalidateQueries({queryKey:['events']})
       <div className="control">
         {content}
         <ImagePicker
-          images={data ? data : []}
+          images={data ? data :[]}
           onSelect={handleSelectImage}
           selectedImage={selectedImage}
         />
