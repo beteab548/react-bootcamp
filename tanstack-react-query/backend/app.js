@@ -108,7 +108,7 @@ app.post("/events", async (req, res) => {
 app.put("/events/:id", async (req, res) => {
   const { id } = req.params;
   const { event } = req.body;
-
+  console.log(id);
   if (!event) {
     return res.status(400).json({ message: "Event is required" });
   }
@@ -126,25 +126,17 @@ app.put("/events/:id", async (req, res) => {
 
   const eventsFileContent = await fs.readFile("./data/events.json");
   const events = JSON.parse(eventsFileContent);
-
   const eventIndex = events.findIndex((event) => event.id === id);
-
   if (eventIndex === -1) {
     return res.status(404).json({ message: "Event not found" });
   }
-
   events[eventIndex] = {
     id,
     ...event,
   };
-
   await fs.writeFile("./data/events.json", JSON.stringify(events));
-
-  setTimeout(() => {
-    res.json({ event: events[eventIndex] });
-  }, 1000);
+  res.json({ event: events[eventIndex] });
 });
-
 app.delete("/events/:id", async (req, res) => {
   const { id } = req.params;
 

@@ -17,9 +17,10 @@ export default function EditEvent() {
     mutate,
     error: Error,
     isError: IsError,
-  } = useMutation({ mutationFn: updateEvent },);
+  } = useMutation({ mutationFn: updateEvent });
   function handleSubmit(formData) {
-    mutate({ id:id, event: formData });
+    mutate({ id,event: formData });
+    navigate("../");
   }
   function handleClose() {
     navigate("../");
@@ -30,7 +31,7 @@ export default function EditEvent() {
         <Link to="../" className="button-text">
           Cancel
         </Link>
-        <button type="submit" className="button" >
+        <button type="submit" className="button">
           Update
         </button>
       </EventForm>
