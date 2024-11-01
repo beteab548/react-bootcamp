@@ -1,5 +1,6 @@
 export default function ImagePicker({ images, selectedImage, onSelect }) {
-  
+  // console.log(images);
+  // console.log(selectedImage);
   return (
     <div id="image-picker">
       <p>Select an image</p>

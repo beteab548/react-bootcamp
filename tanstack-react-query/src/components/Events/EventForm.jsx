@@ -7,15 +7,17 @@ import ErrorBlock from "../UI/ErrorBlock.jsx";
 import { QueryClients } from "../../App.jsx";
 export default function EventForm({ inputData, onSubmit, children }) {
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(inputData?.image); 
+  const [selectedImage, setSelectedImage] = useState(inputData?.image);
   const { data, isLoading, isError } = useQuery({
-    queryFn: fetchSelectableImages,
+    queryFn: ({ signal }) => {
+      return fetchSelectableImages({ signal });
+    },
     queryKey: ["images"],
   });
   const { mutate, isPending, error } = useMutation({
     mutationFn: createNewEvent,
     onSuccess: () => {
-QueryClients.invalidateQueries({queryKey:['events']})
+      QueryClients.invalidateQueries({ queryKey: ["events"] });
       navigate("../");
     },
   });
@@ -35,7 +37,6 @@ QueryClients.invalidateQueries({queryKey:['events']})
     onSubmit({ ...data, image: selectedImage });
     mutate({ event: { ...data, image: selectedImage } });
   }
-
   return (
     <form id="event-form" onSubmit={handleSubmit}>
       <p className="control">
@@ -50,7 +51,7 @@ QueryClients.invalidateQueries({queryKey:['events']})
       <div className="control">
         {content}
         <ImagePicker
-          images={data ? data :[]}
+          images={data ? data : []}
           onSelect={handleSelectImage}
           selectedImage={selectedImage}
         />
