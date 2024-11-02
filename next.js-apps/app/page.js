@@ -1,14 +1,10 @@
 import Link from "next/link";
 import classes from "./page.module.css";
 import ImageSlideshow from "@/components/images/image-slideshow";
-import getMeals from "@/lib/fetcheMeals";
-import MealGrid from "@/components/meals/mealGrid";
 // export async function getServerSideProps() {
 //   return { props: { meals } };
 // }
 export default async function Home() {
-  const meals = await getMeals();
-  // console.log(meals[0]);
   return (
     <>
       <header className={classes.header}>
@@ -26,8 +22,7 @@ export default async function Home() {
           </div>
         </div>
       </header>
-      <main>
-        <MealGrid meals={meals}/>
+      <main className={classes.main}>
       </main>
     </>
   );
