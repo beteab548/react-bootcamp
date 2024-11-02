@@ -1,4 +1,4 @@
-import getMeals from "@/lib/fetcheMeals";
+import {getMeals} from "@/lib/fetcheMeals";
 import MealGrid from "@/components/meals/mealGrid";
 import classes from "./loading.module.css";
 import { Suspense } from "react";

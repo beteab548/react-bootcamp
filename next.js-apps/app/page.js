@@ -1,9 +1,6 @@
 import Link from "next/link";
 import classes from "./page.module.css";
 import ImageSlideshow from "@/components/images/image-slideshow";
-// export async function getServerSideProps() {
-//   return { props: { meals } };
-// }
 export default async function Home() {
   return (
     <>
