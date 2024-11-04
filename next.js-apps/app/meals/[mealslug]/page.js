@@ -1,9 +1,13 @@
 import { getMeal } from "@/lib/fetcheMeals";
 import Image from "next/image";
 import classes from "./page.module.css";
-export default function mealsDetail({ params }) {
-  const meal = getMeal(params.mealslug);
-  meal.instructions = meal.instructions.replace(/\n/g, "<br/>");
+import { notFound } from "next/navigation";
+export default async function mealsDetail({ params }) {
+  const meal =await getMeal(params.mealslug);
+  if (!meal) {
+    notFound();
+  }
+  console.log();
   return (
     <>
       <header className={classes.header}>

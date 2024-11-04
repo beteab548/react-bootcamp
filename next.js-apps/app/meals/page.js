@@ -1,7 +1,8 @@
-import {getMeals} from "@/lib/fetcheMeals";
+import { getMeals } from "@/lib/fetcheMeals";
 import MealGrid from "@/components/meals/mealGrid";
 import classes from "./loading.module.css";
 import { Suspense } from "react";
+import Link from "next/link";
 async function MealsComponent() {
   const meals = await getMeals();
   return <MealGrid meals={meals} />;
@@ -14,7 +15,10 @@ export default async function Meals() {
         <h2>
           choose your favorite recipe and cook it yourself.it's easy adn fun!
         </h2>
-        <button>share your meals</button>
+        <button>
+          
+          <Link href={'meals/share'}> share your meals</Link>
+        </button>
       </div>
       <Suspense fallback={<p className={classes.loading}>Loading</p>}>
         <MealsComponent />

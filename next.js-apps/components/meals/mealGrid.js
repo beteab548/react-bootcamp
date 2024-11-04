@@ -4,7 +4,7 @@ export default function MealGrid({ meals }) {
   return (
     <div className={classes.meals}>
       {meals.map((meal) => {
-        return <MealItem meals={meal} />;
+        return <MealItem key={meal.id} meals={meal} />;
       })}
     </div>
   );
