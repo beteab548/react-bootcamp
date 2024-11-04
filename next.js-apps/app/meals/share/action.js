@@ -1,4 +1,6 @@
+"use server";
 import { saveMeal } from "@/lib/fetcheMeals";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 function validateInput(input) {
   return !input || input.trim() === "";
@@ -23,5 +25,6 @@ export async function handelSubmit(previouseState, formData) {
     return { message: "invalid input" };
   }
   await saveMeal(meal);
+  revalidatePath("/meals");
   redirect("/meals");
 }
