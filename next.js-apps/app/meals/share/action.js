@@ -1,8 +1,9 @@
 import { saveMeal } from "@/lib/fetcheMeals";
 import { redirect } from "next/navigation";
-
-export async function handelSubmit(formData) {
-  "use server";
+function validateInput(input) {
+  return !input || input.trim() === "";
+}
+export async function handelSubmit(previouseState, formData) {
   const meal = {
     creator: formData.get("name"),
     creator_email: formData.get("email"),
@@ -11,7 +12,16 @@ export async function handelSubmit(formData) {
     instructions: formData.get("instructions"),
     image: formData.get("image"),
   };
-  console.log(meal);
+  if (
+    validateInput(meal.creator) ||
+    validateInput(meal.creator_email) ||
+    validateInput(meal.instructions) ||
+    validateInput(meal.summary) ||
+    validateInput(meal.title) ||
+    !meal.image
+  ) {
+    return { message: "invalid input" };
+  }
   await saveMeal(meal);
   redirect("/meals");
 }
